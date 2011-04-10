@@ -21,10 +21,12 @@
 	"directories": {
 		"app_template" : "./app_template",
 		"bin" : "./bin",
+		"class_templates" : "./class_templates",
 		"docs" : "./docs",
 		"lib" : "./lib",
 		"tests" : "./tests"
   	},
+  	"main" : "./lib/lazyBum",
 	"bin": { "lazybum": "./bin/lazybum.js" },
 	"engines": { "node": ">= 0.4.4" }
 }

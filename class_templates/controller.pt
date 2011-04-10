@@ -1,0 +1,17 @@
+var Controller = require('lazyBum').get('Controller');
+
+var <%=objectName%> = Controller.extend(function() {
+	<%=objectName%>.super_.apply(this, arguments);
+});
+
+module.exports = <%=objectName%>;
+
+<%=objectName%>.prototype.index_get = function(urlParts, query) {
+	
+};
+
+<%=objectName%>.prototype.index_post = function(urlParts, query, postData) {
+	
+};
+
+

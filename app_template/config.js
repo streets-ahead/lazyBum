@@ -4,9 +4,9 @@ module.exports = {
 	"defaultRenderer" : "html",
 	"routeMaps" : [
 		{
-			"path" : "/",
-			"dest" : "/home"
-		}
+		 	"path" : "/",
+		 	"dest" : "/index"
+	 	}
 	],
 	"routeHandlers" : [
 		
@@ -21,9 +21,7 @@ module.exports = {
 		"xml" : "application/xml"
 	},
 	"preControllerHooks" : [
-		{ 
-		//	"hook": "authenticate",
-		}
+		// "authenticate"
 	],
 	"postControllerHooks" : [
 	],
@@ -45,7 +43,7 @@ module.exports = {
 		},
 		{
 			"file" : "console",
-			"level" : "info"
+			"level" : "trace"
 		}
 	],
 	"templateCache" : 3600, // in seconds

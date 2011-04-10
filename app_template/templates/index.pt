@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=utf-8 />
+	<title>Welcome to lazyBum</title>
+	
+	<!-- include jQuery because it is awesome -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+
+	<!-- include main client javascript -->
+	<script type='text/javascript' src='<%=getBaseURL()%>client_scripts/main.js'></script>
+
+	<!-- include main stylesheet -->
+	<link rel="stylesheet" type="text/css" media="screen" href="<%=getBaseURL()%>css/main.css" />
+</head>
+<body>
+	<div id='main'>	
+		<h1>Welcome to <%=data.frameworkName%></h1>
+		<p>Welcome to lazyBum, the awesome Node.js web framework from the people at <a href='http://streetsaheadllc.com'>Streets Ahead</a>.  lazyBum is all about simplicity, we don't want too many layers of abstraction between us and the wonderful Node.js platform.  lazyBum makes it insanely easy to produce quick apps, whether you need to create a services api, a full web app, or both lazyBum is here to help.</p>	
+
+		<p>lazyBum works similarly to other modern MVC frameworks, it embraces a convention over configuration approach.  To get started create a controller:</p>
+<pre>
+  &gt; lazybum create controller helloworld
+</pre>
+	</div>
+</body>
+</html>
