@@ -2,10 +2,11 @@
 
 var exec = require('child_process').exec,
 	fs = require('fs'),
-	Hobo = require('lazyBum/lib/Hobo');
+	Hobo = require('../lib/Hobo');
 
-var lbFile = require.resolve('lazyBum');
-var moduleDir = lbFile.substring(0, lbFile.indexOf('lib/lazyBum.js'));
+var lbFile = __filename;
+var moduleDir = lbFile.substring(0, lbFile.indexOf('bin/lazybum.js')) + '/';
+console.log(lbFile);
 
 // maybe should be done using node fs commands, but this seems easier for now
 var copyDir = function(fileName) {
