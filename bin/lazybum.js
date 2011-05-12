@@ -19,17 +19,52 @@ var copyDir = function(fileName) {
 	});
 }
 
+var buildModelSandbox = function(args){
+	var fields = []
+	for(var i=2; i<args.length; i++){
+		fields.push(args[i])
+	}
+
+	var sandbox = {
+		"objectName" : args[0],
+		"collectionName" : args[1],
+		"requiredFields" : fields
+	}
+
+	return sandbox;
+}
+
+var buildControllerSandbox = function(args){
+	var sandbox = {
+		"objectName" : args[0],
+		"modelName" : args[1]
+	}
+
+	return sandbox;
+}
+
 var create = function() {
-	console.log(process.argv);
+	var sandbox;
 	if(process.argv.length > 4) {
 		var type = process.argv[3];
 		var name = process.argv[4];
-		console.log("Creating " + type + " " + name);
-		writer = fs.createWriteStream(process.cwd() + '/controllers/' + name + ".js", {flags:'a'});
+		var fields = []
 
-		var sandbox = {
-			"objectName" : name
-		}	
+		switch(type){
+			case 'controller':
+				sandbox = buildControllerSandbox(process.argv.slice(4));
+				break;
+			case 'model':
+				sandbox = buildModelSandbox(process.argv.slice(4));
+				break;
+			default:
+				showHelp();
+				return;
+		}
+
+
+		console.log("Creating " + type + " " + name);
+		writer = fs.createWriteStream(process.cwd() + '/' + type +  's/' + name + ".js", {flags:'a'});
 
 		hobo = Hobo.getInstance();
 		hobo.on('data', function(data) {

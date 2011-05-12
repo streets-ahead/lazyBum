@@ -1,7 +1,12 @@
 var Controller = require('lazyBum').get('Controller');
 
+var that;
+var model;
+
 var <%=objectName%> = Controller.extend(function() {
 	<%=objectName%>.super_.apply(this, arguments);
+	that = this;
+	model = this.getModel('<%=modelName%>')
 });
 
 module.exports = <%=objectName%>;
