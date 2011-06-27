@@ -1,7 +1,7 @@
 {
 	"name": "lazyBum",
 	"description": "A simple RESTful web framework for Node.js.",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"author": "Streets Ahead LLC<team@streetsaheadllc.com>",
 	"homepage": "http://streetsaheadllc.com",
 	"contributors": [
@@ -14,7 +14,8 @@
 	},
 	"keywords": ["REST", "MVC", "web framework", "template", "lazy", "bum", "Streets Ahead"],
 	"dependencies": {
-		"mongodb" : ">= 0.9.2"
+		"mongodb" : ">= 0.9.2",
+		"validator" : ">= 0.2.0"
 	},
 	"directories": {
 		"app_template" : "./app_template",
