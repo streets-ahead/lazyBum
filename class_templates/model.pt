@@ -1,9 +1,0 @@
-var Model = require('lazyBum').get('Model');
-
-var <%=objectName%> = Model.extend(function() {
-	<%=objectName%>.super_.apply(this, arguments);
-	this.collection = '<%=collectionName%>'
-	this.requiredFields = ['<%=requiredFields.join('\',\'')%>']
-});
-
-module.exports = <%=objectName%>;

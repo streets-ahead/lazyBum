@@ -43,6 +43,29 @@ var buildControllerSandbox = function(args){
 	return sandbox;
 }
 
+var runTests = function() {
+	var files = fs.readdirSync(process.cwd() + '/tests');
+	console.log('Finding tests in ' + process.cwd() + '/tests');
+	for(var i = 0; i < files.length; i++) {
+		var testClass = require(process.cwd() + '/tests/' + files[i]);
+		var test = new testClass();
+		console.log('Running tests for ' + files[i]);
+		for(var prop in test) {
+			if(typeof test[prop] === 'function' && prop.indexOf('test') === 0) {
+				console.log('       Running ' + prop);
+				if(test.setUp){
+					test.setUp();
+				}
+				test[prop]();
+			}
+		}
+		
+		if(test.done) {
+			test.done();
+		}
+	} 
+}
+
 var create = function() {
 	var sandbox;
 	if(process.argv.length > 4) {
@@ -54,7 +77,7 @@ var create = function() {
 			case 'controller':
 				sandbox = buildControllerSandbox(process.argv.slice(4));
 				break;
-			case 'model':
+			case 'collection':
 				sandbox = buildModelSandbox(process.argv.slice(4));
 				break;
 			default:
@@ -85,7 +108,8 @@ var showHelp = function() {
 	process.exit();
 }
 
-var accepts = ['init', 'create'], action;
+var accepts = ['init', 'create', 'run-tests'], action;
+
 if (accepts.indexOf(process.argv[2]) !== -1) {
 	action = process.argv[2];
 console.log('Performing action ' + action);
@@ -95,6 +119,9 @@ console.log('Performing action ' + action);
 			break;
 		case "create":
 			create();
+			break;
+		case "run-tests":
+			runTests()
 			break;
 		case "help":
 			showHelp();

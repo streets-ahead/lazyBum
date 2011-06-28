@@ -1,5 +1,11 @@
-var html = require('../lib/helpers/html');
+// var html = require('../lib/helpers/html');
+// 
+// console.log(html.createImage('test.jpg', 'awesome'));
+// 
+// console.log(html.createLink('link', 'linktext', '_blank'));
 
-console.log(html.createImage('test.jpg', 'awesome'));
+var htmlHelperTest = function() {
+	
+}
 
-console.log(html.createLink('link', 'linktext', '_blank'));
+module.exports = htmlHelperTest;

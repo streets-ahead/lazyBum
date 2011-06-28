@@ -1,12 +1,18 @@
-require.paths.unshift(process.cwd() + "/lib");
-var lbLogger = require('lbLogger');
+// require.paths.unshift(process.cwd() + "/lib");
+// var lbLogger = require('lbLogger');
+// 
+// 
+// var log = new lbLogger(module);
+// 
+// log.debug('test');
+// log.error('terry sucks');
+// // log.warn('I am awesome')
 
+var loggerTest = function() {
+	
+}
 
-var log = new lbLogger(module);
-
-log.debug('test');
-log.error('terry sucks');
-// log.warn('I am awesome')
+module.exports = loggerTest;
 
 
 
