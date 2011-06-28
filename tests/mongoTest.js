@@ -1,6 +1,6 @@
 var mongo = require('../lib/helpers/mongo');
 
-var client = mongo.getDbClient('testme', 'localhost');
+var client = mongo.createDbClient('streetsahead', 'localhost');
 
 client.connect();
 
@@ -11,6 +11,6 @@ client.find('myTable', {}).next(function(done, results) {
 	done();
 });
 
-client.remove('myTable', {});
+//client.remove('myTable', {});
 
 client.closeConnection();
