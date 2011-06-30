@@ -79,12 +79,12 @@ collectionTest.prototype.setUp = function() {
 											saId : {type : 'Int', default : 0}
 										});
 	
-	this.badSchema = new this.col.schema();
+	this.badSchema = new this.col.Model();
 	this.badSchema.post = 'blah blah blah';
 	this.badSchema.saId = '3';
 	this.badSchema.createdDate = 'May 12, 1984';
 
-	this.goodSchema = new this.col.schema();
+	this.goodSchema = new this.col.Model();
 	this.goodSchema.post = 'test me awesome!';
 	this.goodSchema.saId = '3';
 	this.goodSchema.createdDate = 'May 12, 1984';
