@@ -1,0 +1,59 @@
+info it worked if it ends with ok
+verbose cli [ 'node', '/usr/local/bin/npm', 'link' ]
+info using npm@1.0.6
+info using node@v0.5.0-pre
+verbose config file /home/realmatter/.npmrc
+verbose config file /usr/local/etc/npmrc
+silly testEngine { name: 'lazyBum',
+silly testEngine   description: 'A simple RESTful web framework for Node.js.',
+silly testEngine   version: '0.2.0',
+silly testEngine   author: 
+silly testEngine    { name: 'Streets Ahead LLC',
+silly testEngine      email: 'team@streetsaheadllc.com' },
+silly testEngine   homepage: 'http://streetsaheadllc.com',
+silly testEngine   contributors: 
+silly testEngine    [ { name: 'Sam Mussell',
+silly testEngine        email: 'sam@streetsaheadllc.com' },
+silly testEngine      { name: 'Terry Keeney',
+silly testEngine        email: 'terry@streetsaheadllc.com' } ],
+silly testEngine   repository: 
+silly testEngine    { type: 'git',
+silly testEngine      url: 'git://github.com/streets-ahead/lazyBum.git' },
+silly testEngine   keywords: 
+silly testEngine    [ 'REST',
+silly testEngine      'MVC',
+silly testEngine      'web framework',
+silly testEngine      'template',
+silly testEngine      'lazy',
+silly testEngine      'bum',
+silly testEngine      'Streets Ahead' ],
+silly testEngine   dependencies: { mongodb: '>= 0.9.2', validator: '>= 0.2.0' },
+silly testEngine   directories: 
+silly testEngine    { app_template: './app_template',
+silly testEngine      bin: './bin',
+silly testEngine      class_templates: './class_templates',
+silly testEngine      docs: './docs',
+silly testEngine      lib: './lib',
+silly testEngine      tests: './tests' },
+silly testEngine   main: './lib/lazyBum',
+silly testEngine   bin: { lazybum: './bin/lazybum.js' },
+silly testEngine   engines: { node: '>= 0.4.4' },
+silly testEngine   devDependencies: {},
+silly testEngine   _id: 'lazyBum@0.2.0',
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.6',
+silly testEngine   _nodeVersion: 'v0.5.0-pre',
+silly testEngine   _defaultsLoaded: true }
+verbose caching /streetsahead/workspace/lazyBum/package.json
+verbose loadDefaults lazyBum@0.2.0
+info rm fail /usr/local/lib/node_modules/lazyBum
+info rm fail EACCES, Permission denied '/usr/local/lib/node_modules/lazyBum'
+info rm fail /usr/local/lib/node_modules/lazyBum
+info rm fail EACCES, Permission denied '/usr/local/lib/node_modules/lazyBum'
+ERR! EEXIST, File exists '/streetsahead/workspace/lazyBum'
+ERR! File exists: /streetsahead/workspace/lazyBum
+ERR! Move it away, and try again.
+ERR! 
+ERR! System Linux 2.6.38-8-generic
+ERR! command "node" "/usr/local/bin/npm" "link"
+verbose exit [ 17, true ]
