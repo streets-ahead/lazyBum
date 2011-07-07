@@ -1,4 +1,4 @@
-// var mongo = require('../lib/helpers/mongo');
+var mongo = require('../lib/helpers/mongo');
 // 
 // var client = mongo.createDbClient('streetsahead', 'localhost');
 // 
@@ -16,7 +16,10 @@
 // client.closeConnection();
 
 var mongoTest = function() {
+	var client = mongo.createDbClient('streetsahead', 'localhost');
 	
+	client.connect();
 }
+
 
 module.exports = mongoTest;

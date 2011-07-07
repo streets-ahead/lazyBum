@@ -92,6 +92,24 @@ collectionTest.prototype.setUp = function() {
 	this.goodSchema.title = 'my title';
 }
 
+collectionTest.prototype.testSaveNew = function() {
+	var that = this;
+
+	this.goodSchema.save(function(results) {	
+	throw 'wwewewe'	
+//		assert.strictEqual(results.length, 1, 'The size of the result was ' + results.length + ' should be 1');
+//		assert.strictEqual(results[0].title, 'my title', 'the titles were incorrect');
+	});
+}
+
+collectionTest.prototype.testFind = function() {
+	
+}
+
+collectionTest.prototype.testSaveExisting = function() {
+	
+}
+
 collectionTest.prototype.done = function() {
 	this.col.dbClient.closeConnection();
 }
