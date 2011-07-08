@@ -15,10 +15,29 @@ var mongo = require('../lib/helpers/mongo');
 // 
 // client.closeConnection();
 
+var client;
+
 var mongoTest = function() {
-	var client = mongo.createDbClient('streetsahead', 'localhost');
+	client = mongo.createDbClient('streetsahead', 'localhost');
 	
 	client.connect();
+}
+
+mongoTest.prototype.testInsert = function() {
+	client.insert('myTable', {test:'stuff'}).next(function(done, docs){
+
+		console.log('inserted stuff ');
+		console.log(docs)
+		 throw 'test'
+		 // done();
+	}).next(function(done) {
+		console.log('testka;sdkfas')
+		done();
+	}) 
+}
+
+mongoTest.prototype.done = function() {
+	client.closeConnection();
 }
 
 

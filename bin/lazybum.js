@@ -61,11 +61,7 @@ var runTests = function() {
 		}
 		
 		if(test.done) {
-//			test.done();
-			//wait incase of errors
-			// setTimeout(function() {
-			// 	test.done()
-			// }, 1000);
+			test.done();
 		}
 	} 
 }
