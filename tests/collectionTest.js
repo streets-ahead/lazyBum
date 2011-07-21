@@ -95,10 +95,11 @@ collectionTest.prototype.setUp = function() {
 collectionTest.prototype.testSaveNew = function() {
 	var that = this;
 
-	this.goodSchema.save(function(results) {	
-	throw 'wwewewe'	
-//		assert.strictEqual(results.length, 1, 'The size of the result was ' + results.length + ' should be 1');
-//		assert.strictEqual(results[0].title, 'my title', 'the titles were incorrect');
+	this.goodSchema.save(function(results, err) {
+		throw 'test'
+		// console.log(results)
+		assert.strictEqual(results.length, 1, 'The size of the result was ' + results.length + ' should be 1');
+		assert.strictEqual(results[0].title, 'my title2', 'the titles were incorrect');
 	});
 }
 
