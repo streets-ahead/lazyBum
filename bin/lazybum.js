@@ -44,6 +44,11 @@ var buildControllerSandbox = function(args){
 }
 
 var runTests = function() {
+	process.on('uncaughtException', function(e) {
+		console.log(e.message);
+		console.log(e.stack);
+	})
+	
 	var files = fs.readdirSync(process.cwd() + '/tests');
 	console.log('Finding tests in ' + process.cwd() + '/tests');
 	for(var i = 0; i < files.length; i++) {
@@ -56,6 +61,7 @@ var runTests = function() {
 				if(test.setUp){
 					test.setUp();
 				}
+			
 				test[prop]();
 			}
 		}
