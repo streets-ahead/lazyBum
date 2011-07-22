@@ -1,59 +1,6 @@
 var Collection = require('../lib/Collection'),
 	assert = require('assert');
 
-// var col = new Collection('myTable', {
-// 										post : {type : 'String'},
-// 										title : {type : 'String', required:true},
-// 										createdDate : {type : 'Date'},
-// 										updatedDate : {type : 'Date'},
-// 										published : {type : 'Bool', default : false},
-// 										tags : {type : 'Array'},
-// 										author : {type : 'String', default : 'Sam'},
-// 										saId : {type : 'Int', default : 0}
-// 									});
-// 									
-// //console.log(col)
-// var schemaTest = new col.schema();
-// schemaTest.post = 'test me awesome!';
-// schemaTest.saId = '3';
-// schemaTest.createdDate = 'May 12, 1984';
-// // schemaTest.title = 'blah';
-// 
-// // console.log(schemaTest.post);
-// // console.log(schemaTest.published);
-// // console.log(schemaTest.createdDate);
-// // console.log(schemaTest.author);
-// // console.log(schemaTest.saId);
-// 
-// console.log(schemaTest.validate());
-// console.log("error message " + schemaTest.errorMessage);
-// 
-// 
-// // console.log('test2')
-// // col.findAll(function(s2) {
-// // 	console.log(s2[0].post);
-// // 	console.log(s2[0].title);
-// // 	console.log(s2[0].createdDate);
-// // 	console.log(s2[0].published);
-// // 	console.log(s2[0].author);
-// // 	console.log(s2[0].saId);
-// // 	console.log(s2[0].id);
-// // });
-// 
-// col.create({
-// 	post : 'test me',
-// 	title : 'My title',
-// 	createdDate : new Date(),
-// 	published : false,
-// 	author : 'Sam'
-// }, function(obj) {
-// 	//console.log('test3')
-// 	//console.log(obj);	
-// });
-// 
-// 
-// col.dbClient.closeConnection();
-
 var collectionTest = function() {
 	this.col = new Collection('myTable', {
 											post : {type : 'String'},
@@ -78,6 +25,11 @@ collectionTest.prototype.setUp = function() {
 											author : {type : 'String', default : 'Sam'},
 											saId : {type : 'Int', default : 0}
 										});
+										
+	this.col.addErrorHanlder(function(e) {
+		console.log('an error occurred ');
+		console.log(e);
+	})
 	
 	this.badSchema = new this.col.Model();
 	this.badSchema.post = 'blah blah blah';
@@ -96,15 +48,16 @@ collectionTest.prototype.testSaveNew = function() {
 	var that = this;
 
 	this.goodSchema.save(function(results, err) {
-		throw 'test'
-		// console.log(results)
 		assert.strictEqual(results.length, 1, 'The size of the result was ' + results.length + ' should be 1');
-		assert.strictEqual(results[0].title, 'my title2', 'the titles were incorrect');
+		assert.strictEqual(results[0].title, 'my title', 'the titles were incorrect');
 	});
 }
 
 collectionTest.prototype.testFind = function() {
-	
+	this.col.find(function(results) {
+		console.log('RESULTS')
+		console.log(results);
+	})
 }
 
 collectionTest.prototype.testSaveExisting = function() {

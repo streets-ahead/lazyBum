@@ -5,7 +5,7 @@ var client;
 var mongoTest = function() {
 	client = mongo.createDbClient('streetsahead', 'localhost');
 
-	client.addErrorHandler('ERROR', function(e) {
+	client.ahead.on('ERROR', function(e) {
 		console.log('got error ' + e);
 	})
 	
@@ -17,6 +17,12 @@ mongoTest.prototype.testInsert = function() {
 	client.insert('myTable', {test:'stuff'}).next(function(done, docs){
 		 done();
 	}) 
+}
+
+mongoTest.prototype.testFind = function() {
+	client.find('myTable', {}, null).next(function(done, results) {
+		done();
+	})
 }
 
 mongoTest.prototype.done = function() {
