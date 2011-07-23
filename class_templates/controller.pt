@@ -1,7 +1,9 @@
-var Controller = require('lazyBum').get('Controller');
+var lazybum = require('lazybum'),
+	Controller = lazybum.get('Controller');
+	
+var log = lazybum.getLogger(module);
 
 var that;
-var model;
 
 var <%=objectName%> = Controller.extend(function() {
 	<%=objectName%>.super_.apply(this, arguments);

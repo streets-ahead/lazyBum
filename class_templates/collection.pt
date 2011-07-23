@@ -1,9 +1,15 @@
-var Collection = require('lazyBum').get('Collection');
+var lazybum = require('lazybum'),
+	Collection = lazybum.get('Collection');
+	
+var log = lazybum.getLogger(module);
+
+var that;
 
 var <%=objectName%> = Collection.extend(function() {
 	<%=objectName%>.super_.apply(this, '<%=objectName%>', {
 		//fill in schema here
 	});
+	that = this;
 });
 
 module.exports = <%=objectName%>;

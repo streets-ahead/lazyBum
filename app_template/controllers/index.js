@@ -1,4 +1,7 @@
-var Controller = require('lazyBum').get('Controller');
+var lazybum = require('lazyBum'),
+	Controller = lazybum.get('Controller');
+	
+var logger = lazybum.getLogger(module);
 
 var Welcome = Controller.extend(function() {
 	Welcome.super_.apply(this, arguments);
