@@ -63,6 +63,10 @@ var runTests = function() {
 				}
 			
 				test[prop]();
+				
+				if(test.tearDown) {
+					test.tearDown();
+				}
 			}
 		}
 		

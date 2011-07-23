@@ -45,6 +45,11 @@ collectionTest.prototype.setUp = function() {
 	this.goodSchema.title = 'my title';
 }
 
+collectionTest.prototype.tearDown = function() {
+	console.log('removing test data');
+	this.col.dbClient.removeAll('testTable');	
+}
+
 collectionTest.prototype.testSaveNew = function() {
 	var that = this;
 
@@ -52,7 +57,6 @@ collectionTest.prototype.testSaveNew = function() {
 		assert.strictEqual(results.length, 1, 'The size of the result was ' + results.length + ' should be 1');
 		assert.strictEqual(results[0].title, 'my title', 'the titles were incorrect');
 	});
-	that.col.dbClient.removeAll('testTable');
 }
 
 collectionTest.prototype.testFind = function() {	
@@ -65,8 +69,6 @@ collectionTest.prototype.testFind = function() {
 		assert.strictEqual(results[0].title, 'post 1 title', 'the title was incorrect');
 		assert.strictEqual(results[1].createdDate.toString(), new Date('5/12/1984').toString(), 'the date was not correct actual ' + results[1].createdDate + ' expected ' + new Date('5/12/1984'));
 	});
-		
-	that.col.dbClient.removeAll('testTable');
 }
 
 collectionTest.prototype.testRemove = function() {
@@ -79,8 +81,6 @@ collectionTest.prototype.testRemove = function() {
 		assert.strictEqual(results.length, 1, 'results should have lenght 1 but has length ' + results.length);
 		done();
 	});
-	
-	this.col.dbClient.removeAll('testTable');
 }
 
 collectionTest.prototype.testSaveExisting = function() {
@@ -95,29 +95,26 @@ collectionTest.prototype.testSaveExisting = function() {
 		console.log('updating document');
 		results[0].published = false;
 		results[0].title = 'new title';
-		results[0].save();
+		results[0].save( function() {
+			that.col.find({title:'new title'}, function(results) {
+				assert.strictEqual(results.length, 1, 'The length was supposed to be 1 but was ' + results.length);
+			})
+		});
 		done();
 	})
-
-	// that.col.find({title:'new title'}, function(results) {
-	// 	console.log(results);
-	// 	assert.strictEqual(results.length, 1, 'The length was supposed to be 1 but was ' + results.length);
-	// })
-	
-	this.col.dbClient.removeAll('testTable');
-	
-}
-
-setTimeout(function() {}, 2000000);
-
-collectionTest.prototype.done = function() {
-	var that = this;
-	setTimeout(function() {that.col.dbClient.closeConnection(); }, 1000);
 }
 
 collectionTest.prototype.testValidateSchema = function() {
 	assert.ok(!this.badSchema.validate(), 'the bad schema validated');
 	assert.ok(this.goodSchema.validate(), 'The good schema did not validate');
+}
+
+collectionTest.prototype.done = function() {
+	var that = this;
+	setTimeout(function() {
+		that.col.dbClient.removeAll('testTable');	
+		that.col.dbClient.closeConnection(); 
+	}, 1000);
 }
 
 module.exports = collectionTest;
