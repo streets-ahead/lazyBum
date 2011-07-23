@@ -1,7 +1,7 @@
 var lazybum = require('lazyBum'),
 	Controller = lazybum.get('Controller');
 	
-var logger = lazybum.getLogger(module);
+var log = lazybum.getLogger(module);
 
 var Index = Controller.extend(function() {
 	Index.super_.apply(this, arguments);

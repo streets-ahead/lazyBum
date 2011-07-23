@@ -3,11 +3,8 @@ var lazybum = require('lazybum'),
 	
 var log = lazybum.getLogger(module);
 
-var that;
-
 var <%=objectName%> = Controller.extend(function() {
 	<%=objectName%>.super_.apply(this, arguments);
-	that = this;
 });
 
 module.exports = <%=objectName%>;
