@@ -5,11 +5,13 @@ var exec = require('child_process').exec,
 	Hobo = require('../lib/Hobo');
 
 var lbFile = __filename;
-var moduleDir = lbFile.substring(0, lbFile.indexOf('bin/lazybum.js')) + '/';
+var moduleDir = lbFile.substring(0, lbFile.indexOf('bin/lazybum.js'));
 console.log(lbFile);
 
 // maybe should be done using node fs commands, but this seems easier for now
 var copyDir = function(fileName) {
+	createPackageJson();
+	
 	child = exec('cp -R ' + fileName + " " + process.cwd(), function (error, stdout, stderr) {
 		if (error !== null) {
 			console.log('exec error: ' + error);
@@ -17,6 +19,24 @@ var copyDir = function(fileName) {
 			console.log("Initialized lazyBum project, have fun bummin' ...\n");
 		}
 	});
+}
+
+var createPackageJson = function() {
+	var realPath = fs.realpathSync(process.cwd());
+	var projectName = realPath.substring(realPath.lastIndexOf('/')+1);
+	
+	console.log("Creating package.json file...");
+	writer = fs.createWriteStream(process.cwd() + '/package.json', {flags:'a'});
+
+	hobo = Hobo.getInstance();
+	hobo.on('data', function(data) {
+		writer.write(data);
+	});
+	hobo.on('end', function() {
+		writer.end();
+	});
+
+	hobo.render('package.json', {'projectname' : projectName}, moduleDir + 'class_templates/');
 }
 
 var buildModelSandbox = function(args){

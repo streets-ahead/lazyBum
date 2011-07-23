@@ -3,13 +3,15 @@ var lazybum = require('lazyBum'),
 	
 var logger = lazybum.getLogger(module);
 
-var Welcome = Controller.extend(function() {
-	Welcome.super_.apply(this, arguments);
+var Index = Controller.extend(function() {
+	Index.super_.apply(this, arguments);
 });
 
-module.exports = Welcome;
+Index.prototype.helpers = ['html'];
 
-Welcome.prototype.index_get = function(urlParts, query) {
+module.exports = Index;
+
+Index.prototype.index_get = function(urlParts, query) {
 	this.writeResponse( { frameworkName : 'lazyBum' } );
 };
 
