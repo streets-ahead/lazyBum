@@ -46,7 +46,6 @@ collectionTest.prototype.setUp = function() {
 }
 
 collectionTest.prototype.tearDown = function() {
-	console.log('removing test data');
 	this.col.dbClient.removeAll('testTable');	
 }
 
