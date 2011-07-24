@@ -1,10 +1,10 @@
 <div>
 	\<\% for (var i=0; i<data.<%=type%>.length; i++) { \%\>
-		<% for (var i=0; i< fields.length; i++) { %>
+		<% for (var field in fields) { %>
 			<div>
-				<span><b>fields[i]</b></span>
+				<span><b>field</b></span>
 				<div>
-					\<\%\= data.<%=type%>.<%=fields[i]%> \%\>
+					\<\%\= data.<%=type%>.<%=field%> \%\>
 				</div>
 			</div>
 		<% } %>

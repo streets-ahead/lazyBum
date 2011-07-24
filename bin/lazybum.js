@@ -2,7 +2,8 @@
 
 var exec = require('child_process').exec,
 	fs = require('fs'),
-	Hobo = require('../lib/Hobo');
+	Hobo = require('../lib/Hobo'),
+	Ahead = require('../lib/helpers/ahead');
 
 var lbFile = __filename;
 var moduleDir = lbFile.substring(0, lbFile.indexOf('bin/lazybum.js'));
@@ -96,6 +97,23 @@ var runTests = function() {
 	} 
 }
 
+var buildTemplate = function(file, sandbox, done){
+	var hobo = new Hobo();
+	var templateContents = '';
+
+	hobo.on('data', function(data) {
+		//	console.log('adding to ' + file + ': ' + data)
+		templateContents += data
+	});
+	hobo.on('end', function() {
+		console.log('\tWriting file ' + file);
+		fs.writeFileSync(process.cwd() + '/templates/' + sandbox.type + '/' + file, templateContents)
+		done(null, null)
+	});
+	
+	hobo.render(file, sandbox, moduleDir + 'class_templates/templates/');
+}
+
 var buildTemplates = function(){
 	var sandbox;
 	var to_template = process.argv.slice(3);
@@ -103,9 +121,9 @@ var buildTemplates = function(){
 	var object = new collection();
 	var schema = object.Model.schema;
 	
-	object.dbClient.closeConnection(); 
+	var ahead = new Ahead();
 	
-	console.log(schema)
+	object.dbClient.closeConnection(); 
 	
 	var sandbox = {
 		"fields": schema,
@@ -118,27 +136,15 @@ var buildTemplates = function(){
 			console.log(stderr)
 		}else{
 			console.log('Creating templates ... ');
-			fs.readdir(moduleDir + '/class_templates/templates', function(err, files){
-				for(var i = 0; i < files.length; i++ ){
-					file = files[i]
-					console.log('creating template ' + file + '...');
-					if(file.indexOf('.') !== 0 && file.indexOf('edit') > -1){			
-						writer = fs.createWriteStream(process.cwd() + '/templates/' + to_template + '/' + file, {flags:'a'})
-						hobo = Hobo.getInstance();
-						hobo.on('data', function(data) {
-							writer.write(data);
-						});
-						hobo.on('end', function() {
-							writer.end();
-						});
-						
-						console.log('\tWriting file ' + file);
-						
-						hobo.render(file, sandbox, moduleDir + 'class_templates/templates/');
-						break;
-					}
-				}
-			})
+			
+			var files = fs.readdirSync(moduleDir + '/class_templates/templates')
+			for(var i=0; i< files.length; i++){
+				var file = files[i];
+				ahead.next(function(done){
+					console.log('\tBuilding Template: ' + file	)
+					buildTemplate(file, sandbox, done)
+				})
+			}
 		}
 	})
 }
