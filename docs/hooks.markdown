@@ -1,0 +1,3 @@
+## Hooks
+
+Hooks can be used to insert some special processing logic before or after the controller executes.  To create a hook you will need to add a "run" function to your modules and  place the module in the "hooks" folder.  You will also need to register your hook in the config file as either a pre-controller hook, post-controller hook, or both.  Inside the run method you can use "this" to refer to the lazyBum object, this means you can call any method in LBBase and access this.reqData.
