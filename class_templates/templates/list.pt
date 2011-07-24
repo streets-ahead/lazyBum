@@ -1,0 +1,12 @@
+<div>
+	\<\% for (var i=0; i<data.<%=type%>.length; i++) { \%\>
+		<% for (var i=0; i< fields.length; i++) { %>
+			<div>
+				<span><b>fields[i]</b></span>
+				<div>
+					\<\%\= data.<%=type%>.<%=fields[i]%> \%\>
+				</div>
+			</div>
+		<% } %>
+	\<\% } \%\>
+</div>

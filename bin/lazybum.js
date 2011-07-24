@@ -2,7 +2,8 @@
 
 var exec = require('child_process').exec,
 	fs = require('fs'),
-	Hobo = require('../lib/Hobo');
+	Hobo = require('../lib/Hobo'),
+	lazyBum = require('../lib/lazyBum');
 
 var lbFile = __filename;
 var moduleDir = lbFile.substring(0, lbFile.indexOf('bin/lazybum.js'));
@@ -96,6 +97,51 @@ var runTests = function() {
 	} 
 }
 
+var buildTemplates = function(){
+	var sandbox;
+	var to_template = process.argv.slice(3);
+	var collection = new lazyBum.getCollection(to_template);
+	var object = new collection();
+	var schema = object.Model.schema;
+	
+	console.log(schema)
+	
+	var sandbox = {
+		"fields": schema,
+		"type": to_template
+	}
+		
+	exec('mkdir templates/' + to_template, function(error, stdout, stderr){
+		if(error || stderr){
+			console.log(error)
+			console.log(stderr)
+		}else{
+			console.log('Creating templates ... ');
+			fs.readdir(moduleDir + '/class_templates/templates', function(err, files){
+				for(var i=0; i<files.length; i++ ){
+					file = files[i]
+					if(file.indexOf('.')!=0 && file.indexOf('edit')>-1){			
+						writer = fs.createWriteStream(process.cwd() + '/templates/' + to_template + '/' + file, {flags:'a'})
+						hobo = Hobo.getInstance();
+						hobo.on('data', function(data) {
+							writer.write(data);
+						});
+						hobo.on('end', function() {
+							writer.end();
+						});
+						
+						console.log('\tWriting file ' + file);
+						
+						hobo.render(file, sandbox, moduleDir + 'class_templates/templates/');
+						break;
+					}
+				}
+			})
+		}
+	})
+}
+
+
 var create = function() {
 	var sandbox;
 	if(process.argv.length > 4) {
@@ -138,7 +184,7 @@ var showHelp = function() {
 	process.exit();
 }
 
-var accepts = ['init', 'create', 'run-tests'], action;
+var accepts = ['init', 'create', 'run-tests', 'templates'], action;
 
 if (accepts.indexOf(process.argv[2]) !== -1) {
 	action = process.argv[2];
@@ -152,6 +198,9 @@ console.log('Performing action ' + action);
 			break;
 		case "run-tests":
 			runTests()
+			break;
+		case "templates":
+			buildTemplates();
 			break;
 		case "help":
 			showHelp();
