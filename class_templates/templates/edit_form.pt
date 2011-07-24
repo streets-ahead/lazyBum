@@ -2,7 +2,7 @@
 	<form action='/<%=type%>/new' method='post'>
 		<% for (var f in fields) { %>
 			<div>
-				<%= f %> <input type='TEXT' name='<%=f%>'/>
+				<%=f%> <input type='TEXT' name='<%=f%>'/>
 			</div>
 		<% } %>
 	</form>

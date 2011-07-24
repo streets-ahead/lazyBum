@@ -2,8 +2,7 @@
 
 var exec = require('child_process').exec,
 	fs = require('fs'),
-	Hobo = require('../lib/Hobo'),
-	lazyBum = require('../lib/lazyBum');
+	Hobo = require('../lib/Hobo');
 
 var lbFile = __filename;
 var moduleDir = lbFile.substring(0, lbFile.indexOf('bin/lazybum.js'));
@@ -100,9 +99,11 @@ var runTests = function() {
 var buildTemplates = function(){
 	var sandbox;
 	var to_template = process.argv.slice(3);
-	var collection = new lazyBum.getCollection(to_template);
+	var collection = require(process.cwd() + '/collections/' + to_template);
 	var object = new collection();
 	var schema = object.Model.schema;
+	
+	object.dbClient.closeConnection(); 
 	
 	console.log(schema)
 	
@@ -118,9 +119,10 @@ var buildTemplates = function(){
 		}else{
 			console.log('Creating templates ... ');
 			fs.readdir(moduleDir + '/class_templates/templates', function(err, files){
-				for(var i=0; i<files.length; i++ ){
+				for(var i = 0; i < files.length; i++ ){
 					file = files[i]
-					if(file.indexOf('.')!=0 && file.indexOf('edit')>-1){			
+					console.log('creating template ' + file + '...');
+					if(file.indexOf('.') !== 0 && file.indexOf('edit') > -1){			
 						writer = fs.createWriteStream(process.cwd() + '/templates/' + to_template + '/' + file, {flags:'a'})
 						hobo = Hobo.getInstance();
 						hobo.on('data', function(data) {

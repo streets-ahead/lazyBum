@@ -4,9 +4,9 @@ var lazybum = require('lazybum'),
 var log = lazybum.getLogger(module);
 
 var <%=objectName%> = Collection.extend(function() {
-	<%=objectName%>.super_.apply(this, '<%=objectName%>', {
+	<%=objectName%>.super_.apply(this, ['<%=objectName%>', {
 		//fill in schema here
-	});
+	}]);
 });
 
 module.exports = <%=objectName%>;
