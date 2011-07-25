@@ -2,9 +2,9 @@
 	\<\% for (var i=0; i<data.<%=type%>.length; i++) { \%\>
 		<% for (var field in fields) { %>
 			<div>
-				<span><b>field</b></span>
+				<span><b><%=field%></b></span>
 				<div>
-					\<\%\= data.<%=type%>.<%=field%> \%\>
+					\<\%\= data.<%=type%>[i].<%=field%> \%\>
 				</div>
 			</div>
 		<% } %>
