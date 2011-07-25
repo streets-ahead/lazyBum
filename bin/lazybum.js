@@ -97,27 +97,12 @@ var runTests = function() {
 	} 
 }
 
-var buildTemplate = function(file, sandbox, done){
-	var hobo = new Hobo();
-	var templateContents = '';
-
-	hobo.on('data', function(data) {
-		//	console.log('adding to ' + file + ': ' + data)
-		templateContents += data
-	});
-	hobo.on('end', function() {
-		console.log('\tWriting file ' + file);
-		fs.writeFileSync(process.cwd() + '/templates/' + sandbox.type + '/' + file, templateContents)
-		done(null, null)
-	});
-	
-	hobo.render(file, sandbox, moduleDir + 'class_templates/templates/');
-}
+var templateBuilder = {}
 
 var buildTemplates = function(){
 	var sandbox;
-	var to_template = process.argv.slice(3);
-	var collection = require(process.cwd() + '/collections/' + to_template);
+	var type = process.argv.slice(3);
+	var collection = require(process.cwd() + '/collections/' + type);
 	var object = new collection();
 	var schema = object.Model.schema;
 	
@@ -127,26 +112,41 @@ var buildTemplates = function(){
 	
 	var sandbox = {
 		"fields": schema,
-		"type": to_template
+		"type": type
 	}
+	
+	templateBuilder.sandbox = sandbox
+	templateBuilder.files = fs.readdirSync(moduleDir + '/class_templates/templates')
+	templateBuilder.currentFile = 0
 		
-	exec('mkdir templates/' + to_template, function(error, stdout, stderr){
+	exec('mkdir templates/' + type, function(error, stdout, stderr){
 		if(error || stderr){
 			console.log(error)
 			console.log(stderr)
 		}else{
 			console.log('Creating templates ... ');
-			
-			var files = fs.readdirSync(moduleDir + '/class_templates/templates')
-			for(var i=0; i< files.length; i++){
-				var file = files[i];
-				ahead.next(function(done){
-					console.log('\tBuilding Template: ' + file	)
-					buildTemplate(file, sandbox, done)
-				})
-			}
+			renderTemplate(templateBuilder)
 		}
 	})
+}
+
+var renderTemplate = function(templateBuilder){
+	var file = templateBuilder.files[templateBuilder.currentFile]
+	var hobo = new Hobo();
+	var contents = ''
+	hobo.on('data', function(data){
+		contents += data
+	})
+	hobo.on('end', function(){
+		console.log('\tWriting ' + file)
+		fs.writeFileSync(process.cwd() + '/templates/' + templateBuilder.sandbox.type + '/' + file, contents)
+		templateBuilder.currentFile++
+		if(templateBuilder.files[templateBuilder.currentFile]){
+			renderTemplate(templateBuilder);
+		}
+	})
+	
+	hobo.render(file, templateBuilder.sandbox, moduleDir + 'class_templates/templates/');
 }
 
 
