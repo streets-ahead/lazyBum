@@ -1,4 +1,4 @@
-<div>
+<div id='main'>
 	\<\% for (var i=0; i<data.<%=type%>.length; i++) { \%\>
 		<% for (var field in fields) { %>
 			<div>
