@@ -27,7 +27,6 @@ inputTest.prototype.testValidateSimpleObject = function() {
 							tags : [1, 2, 3]
 						}, this.template),  'valid object did not validate');
 						
-console.log(input.validateObject({}, this.template));
 	assert.ok(!input.validateObject({}, this.template), 'invalid object validated');
 }
 

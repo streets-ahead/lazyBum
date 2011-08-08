@@ -24,7 +24,8 @@ collectionTest.prototype.setUp = function() {
 											published : {type : 'Bool', default : false},
 											tags : {type : 'Array'},
 											author : {type : 'String', default : 'Sam'},
-											saId : {type : 'Int', default : 0}
+											saId : {type : 'Int', default : 0},
+											seo_url : {type : 'String', unique : true}
 										});
 										
 	this.col.addErrorHanlder(function(e) {
@@ -43,11 +44,24 @@ collectionTest.prototype.setUp = function() {
 	this.goodSchema.createdDate = 'May 12, 1984';
 	this.goodSchema.published = true;
 	this.goodSchema.title = 'my title';
+	
+	this.goodSchema.seo_url='test';
 }
 
 collectionTest.prototype.tearDown = function() {
 	this.col.dbClient.removeAll('testTable');	
-}
+};
+
+collectionTest.prototype.testFullValidate = function() {
+	this.goodSchema.fullValidate(function(valid) {
+		assert.ok(valid);
+	});
+	
+	this.col.dbClient.insert('testTable', {post:'test post 3', createdDate:new Date(), published:true, title:'post 3 title', seo_url:'test'});
+	this.goodSchema.fullValidate(function(valid) {
+		assert.ok(!valid)
+	});
+};
 
 collectionTest.prototype.testSaveNew = function() {
 	var that = this;
