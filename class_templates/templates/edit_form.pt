@@ -1,5 +1,5 @@
 <div id='main'>
-	<form action='/<%=type%>/new' method='post'>
+	<form action='/<%=type%>' method='post'>
 		<% for (var f in fields) { %>
 			<div>
 				<%=f%> <input type='TEXT' name='<%=f%>'/>
