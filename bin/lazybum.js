@@ -22,6 +22,16 @@ var copyDir = function(fileName) {
 	});
 }
 
+var npmInstallLb = function() {
+	child = exec('npm install lazyBum', function (error, stdout, stderr) {
+		if (error !== null) {
+			console.log('exec error: ' + error);
+		} else {
+			console.log("Installed lazyBum locally in node_modules' ...\n");
+		}
+	});
+}
+
 var createPackageJson = function() {
 	var realPath = fs.realpathSync(process.cwd());
 	var projectName = realPath.substring(realPath.lastIndexOf('/')+1);
@@ -199,6 +209,7 @@ if (accepts.indexOf(process.argv[2]) !== -1) {
 console.log('Performing action ' + action);
 	switch(action){
 		case "init":
+			npmInstallLb();
 			copyDir(moduleDir + "app_template/*");
 			break;
 		case "create":
