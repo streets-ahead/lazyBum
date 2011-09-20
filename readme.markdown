@@ -12,4 +12,3 @@ Once you have installed lazyBum you can get started by using our command line ut
 	
 This will generate the basic folder structure for an lb project.  If you have used Rails, Grails, CodeIgniter, etc this should look relatively familiar.  The first folders you'll want to take note of are Controllers and Templates.  As implied the controllers folder will contain all your controllers and the template folder will contain your templates.  We use a custom template engine that is basically an adapted version of [Parrot](http://comments.gmane.org/gmane.comp.lang.javascript.nodejs/11826).  You can test your new project by typing `node main.js` then visit `http://localhost:8888` in your browser.
 
-For complete docs visit [lazyBumFramework.com](http://lazyBumFramework.com).
