@@ -1,6 +1,10 @@
 body {
 	background-color:#e8e8e8;
 }
+/*
+h1, h2, h3, h4, h5, h6 {
+	color:#54595c !important;
+}*/
 
 #sideBar h1 {
 	text-indent:-99999px;
@@ -22,9 +26,14 @@ body {
 	left:0px;
 	width:400px;
 	background: url('images/background.png') repeat left top;
-	font-family:Georgia;
+	font-family:'Courier New';
 	text-align:center;
-}
+	/*border-right: 1px solid #54595c;*/
+/*
+    box-shadow: 5px 0px 15px rgba(0, 0, 0, 0.20);
+    -moz-box-shadow: 5px 0px 15px rgba(0, 0, 0, 0.20);
+    -webkit-box-shadow: 5px 0px 15px rgba(0, 0, 0, 0.20);
+*/}
 
 #sideBar ul {
 	list-style:none;
