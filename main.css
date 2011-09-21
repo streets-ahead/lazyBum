@@ -7,15 +7,17 @@ h1, h2, h3, h4, h5, h6 {
 }*/
 
 #sideBar h1 {
-	text-indent:-99999px;
 	background: url('images/lb_logo.png') no-repeat center top;
-	height:291px;
-	margin-top:30px;	
+	padding-top:230px;
+	margin-top:30px;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-weight:normal;
+	letter-spacing:10px;	
 }
 
 #sideBar h2 {
 	text-align:center;
-	font-weight:normal;
+/*	font-weight:normal;*/
 	font-size:140%;
 }
 
@@ -39,6 +41,7 @@ h1, h2, h3, h4, h5, h6 {
 	list-style:none;
 	font-size:140%;
 	margin-left:0px;
+	margin-top:0px;
 }
 
 #sideBar li {
