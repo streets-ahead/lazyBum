@@ -6,6 +6,10 @@ h1, h2, h3, h4, h5, h6 {
 	color:#54595c !important;
 }*/
 
+section {
+	margin-top:40px;
+}
+
 #sideBar h1 {
 	background: url('images/lb_logo.png') no-repeat center top;
 	padding-top:230px;
