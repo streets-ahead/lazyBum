@@ -1,7 +1,7 @@
 {
 	"name": "lazyBum",
 	"description": "A simple RESTful web framework for Node.js.",
-	"version": "0.4.7",
+	"version": "0.4.8",
 	"author": "Streets Ahead LLC<team@streetsaheadllc.com>",
 	"homepage": "http://streetsaheadllc.com",
 	"contributors": [
