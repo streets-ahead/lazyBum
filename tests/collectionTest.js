@@ -6,7 +6,6 @@ var collectionTest = function() {
 	this.col = new Collection('testTable', {
 											post : {type : 'String'},
 											title : {type : 'String', required:true},
-											createdDate : {type : 'Date'},
 											updatedDate : {type : 'Date'},
 											published : {type : 'Bool', default : false},
 											tags : {type : 'Array'},
@@ -19,7 +18,6 @@ collectionTest.prototype.setUp = function() {
 	this.col = new Collection('testTable', {
 											post : {type : 'String'},
 											title : {type : 'String', required : true},
-											createdDate : {type : 'Date'},
 											updatedDate : {type : 'Date'},
 											published : {type : 'Bool', default : false},
 											tags : {type : 'Array'},
@@ -36,12 +34,10 @@ collectionTest.prototype.setUp = function() {
 	this.badSchema = new this.col.Model();
 	this.badSchema.post = 'blah blah blah';
 	this.badSchema.saId = '3';
-	this.badSchema.createdDate = 'May 12, 1984';
 
 	this.goodSchema = new this.col.Model();
 	this.goodSchema.post = 'test me awesome!';
 	this.goodSchema.saId = '3';
-	this.goodSchema.createdDate = 'May 12, 1984';
 	this.goodSchema.published = true;
 	this.goodSchema.title = 'my title';
 	
@@ -57,7 +53,7 @@ collectionTest.prototype.testFullValidate = function() {
 		assert.ok(valid);
 	});
 	
-	this.col.dbClient.insert('testTable', {post:'test post 3', createdDate:new Date(), published:true, title:'post 3 title', seo_url:'test'});
+	this.col.dbClient.insert('testTable', {post:'test post 3', published:true, title:'post 3 title', seo_url:'test'});
 	this.goodSchema.fullValidate(function(valid) {
 		assert.ok(!valid)
 	});
@@ -74,19 +70,18 @@ collectionTest.prototype.testSaveNew = function() {
 
 collectionTest.prototype.testFind = function() {	
 	var that = this;
-	that.col.dbClient.insert('testTable', {post:'test post 1', createdDate:new Date(), published:true, title:'post 1 title'});
-	that.col.dbClient.insert('testTable', {post:'test post 2', createdDate:new Date('5/12/1984'), published:true, title:'post 2 title'})
+	that.col.dbClient.insert('testTable', {post:'test post 1',  published:true, title:'post 1 title'});
+	that.col.dbClient.insert('testTable', {post:'test post 2',  published:true, title:'post 2 title'})
 
 	this.col.find({}, function(results) {
 		assert.strictEqual(results.length, 2, 'The result size was ' + results.length + ' should be 2');
 		assert.strictEqual(results[0].title, 'post 1 title', 'the title was incorrect');
-		assert.strictEqual(results[1].createdDate.toString(), new Date('5/12/1984').toString(), 'the date was not correct actual ' + results[1].createdDate + ' expected ' + new Date('5/12/1984'));
 	});
 }
 
 collectionTest.prototype.testRemove = function() {
-	this.col.dbClient.insert('testTable', {post:'test post 3', createdDate:new Date(), published:true, title:'post 3 title'});
-	this.col.dbClient.insert('testTable', {post:'test post 4', createdDate:new Date('5/12/1984'), published:true, title:'post 4 title'})
+	this.col.dbClient.insert('testTable', {post:'test post 3',  published:true, title:'post 3 title'});
+	this.col.dbClient.insert('testTable', {post:'test post 4',  published:true, title:'post 4 title'})
 	
 	this.col.remove({post:'test post 3'}, function() {});
 	
@@ -98,7 +93,7 @@ collectionTest.prototype.testRemove = function() {
 
 collectionTest.prototype.testSaveExisting = function() {
 	var that = this;
-	this.col.dbClient.insert('testTable', {post:'test post 4', createdDate:new Date('5/12/1984'), published:true, title:'post 4 title'});
+	this.col.dbClient.insert('testTable', {post:'test post 4',  published:true, title:'post 4 title'});
 	
 	this.col.find({title:'post 4 title'}, function(results) {
 		console.log('found results');
@@ -125,7 +120,7 @@ collectionTest.prototype.testValidateSchema = function() {
 collectionTest.prototype.done = function() {
 	var that = this;
 	setTimeout(function() {
-		that.col.dbClient.removeAll('testTable');	
+		//that.col.dbClient.removeAll('testTable');	
 		that.col.dbClient.closeConnection(); 
 	}, 1000);
 }
