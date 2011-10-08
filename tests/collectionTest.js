@@ -120,7 +120,7 @@ collectionTest.prototype.testValidateSchema = function() {
 collectionTest.prototype.done = function() {
 	var that = this;
 	setTimeout(function() {
-		//that.col.dbClient.removeAll('testTable');	
+		that.col.dbClient.removeAll('testTable');	
 		that.col.dbClient.closeConnection(); 
 	}, 1000);
 }
